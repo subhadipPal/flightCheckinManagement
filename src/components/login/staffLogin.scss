@@ -1,0 +1,18 @@
+.login {
+  height: 100%;
+}
+
+.login-content-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100% - 64px)
+}
+
+.login-button-header {
+  color: lightcoral;
+}
+
+.button-page{
+  margin-top: 10px;
+}

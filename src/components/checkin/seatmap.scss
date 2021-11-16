@@ -1,0 +1,24 @@
+.seatmap-main {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.seat-grid {
+  display: grid;
+  grid-template-columns: auto 50px auto;
+}
+.row-number {
+  margin: 30%;
+  font-weight: bold;
+  background-color: dimgray;
+  font-size: 16px;
+  border-radius: 10px;
+  text-align: center;
+  color: white;
+  width: 20px;
+  height: 20px;
+  justify-content: center;
+  align-self: center;
+}

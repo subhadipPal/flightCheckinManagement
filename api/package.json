@@ -1,0 +1,13 @@
+{
+  "name": "airline-manager-server",
+  "version": "1.0.0",
+  "description": "API which acts as a backend to the airline manager react client",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "json:server:watch": "json-server --watch -p 3030 airDB.json"
+  },
+  "dependencies": {
+    "json-server": "^0.17.0"
+  }
+}
