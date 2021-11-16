@@ -43,3 +43,15 @@ export const setCurrentBooking = (currentBooking) => ({
   type: SET_CURRENT_BOOKING,
   payload: currentBooking
 })
+
+
+export const updateBooking = (bookingData, bookingId, flightId) => async (dispatch) => {
+  const updatedBooking = await axios.patch(`http://localhost:3030/bookings/${bookingId}`, bookingData)
+
+  dispatch({
+    type: SET_CURRENT_BOOKING,
+    payload: updatedBooking.data
+  })
+
+  dispatch(getBookingDetails(flightId))
+}

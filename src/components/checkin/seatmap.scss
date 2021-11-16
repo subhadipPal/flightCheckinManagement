@@ -22,3 +22,19 @@
   justify-content: center;
   align-self: center;
 }
+
+.legend-info {
+  margin: 20px;
+  display: grid;
+  grid-template-columns: auto auto;
+  width: 50%;
+  position: absolute;
+  bottom: 0;
+}
+
+.legend-header {
+  font-size: 16px;
+  background-color: whitesmoke;
+  grid-column: 1 / span 2;
+  text-align: center;
+}

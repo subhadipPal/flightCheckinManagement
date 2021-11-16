@@ -48,7 +48,7 @@ export default function FlightSelector({ flightsData }) {
         <AccordionSummary expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
           id="panel1a-header">
-          <Typography variant='h4'>Available flights</Typography>
+          <Typography variant='h6'>Available flights</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <List sx={{ width: '100%', maxWidth: 600, bgcolor: 'background.paper' }}>

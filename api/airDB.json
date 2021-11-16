@@ -5,35 +5,35 @@
       "flight_dep_time": 2400,
       "flight_destination": "London",
       "flight_no": "LH101",
-      "seating_capacity": 10
+      "seating_capacity": 6
     },
     {
       "id": "2",
       "flight_dep_time": 2000,
       "flight_destination": "Mumbai",
       "flight_no": "LH201",
-      "seating_capacity": 10
+      "seating_capacity": 6
     },
     {
       "id": "3",
       "flight_dep_time": 2330,
       "flight_destination": "Chicago",
       "flight_no": "LH501",
-      "seating_capacity": 10
+      "seating_capacity": 6
     },
     {
       "id": "4",
       "flight_dep_time": 1800,
       "flight_destination": "Sydney",
       "flight_no": "LH012",
-      "seating_capacity": 10
+      "seating_capacity": 6
     },
     {
       "id": "5",
       "flight_dep_time": 1700,
       "flight_destination": "Lisbon",
       "flight_no": "LH021",
-      "seating_capacity": 10
+      "seating_capacity": 6
     }
   ],
   "bookings": [
@@ -77,7 +77,7 @@
     },
     {
       "flightId": "3",
-      "seat_no": "7D",
+      "seat_no": "6D",
       "passenger_name": "Sayan Das",
       "checkedIn": false,
       "wheel_chair_required": false,
@@ -90,7 +90,7 @@
     {
       "id": "5",
       "flightId": "1",
-      "seat_no": "9E",
+      "seat_no": "4E",
       "passenger_name": "Sumit Saha",
       "checkedIn": true,
       "wheel_chair_required": true,
