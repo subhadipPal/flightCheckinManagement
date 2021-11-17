@@ -55,8 +55,8 @@
       "flightId": "1",
       "seat_no": "3C",
       "passenger_name": "Ilona Möller",
-      "checkedIn": false,
-      "wheel_chair_required": false,
+      "checkedIn": true,
+      "wheel_chair_required": true,
       "withInfant": true,
       "ancillary_services": [
         "Extra Pillow",
@@ -90,15 +90,18 @@
     {
       "id": "5",
       "flightId": "1",
-      "seat_no": "4E",
+      "seat_no": "2E",
       "passenger_name": "Sumit Saha",
       "checkedIn": true,
       "wheel_chair_required": true,
-      "withInfant": true,
+      "withInfant": false,
       "ancillary_services": [
-        "Extra Pillow",
-        "Vegan food"
+        "Extra Pillow"
       ]
     }
-  ]
+  ],
+  "admin": {
+    "username": "admin",
+    "password": "password"
+  }
 }

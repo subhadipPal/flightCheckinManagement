@@ -1,0 +1,29 @@
+.admin-login {
+  height: 100%;
+  background-color: whitesmoke;
+}
+
+.admin-login-content-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100% - 64px)
+}
+
+.admin-login-paper {
+  display: grid;
+  grid-template-columns: auto;
+  row-gap: 20px;
+  padding: 20px;
+  background-color: white;
+}
+
+.admin-login-header {
+  color: lightcoral;
+  font-size: 18px;
+}
+
+.admin-login-error-msg {
+  color: red;
+  font-size: 14px;
+}

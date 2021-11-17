@@ -1,4 +1,5 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
@@ -8,10 +9,29 @@ import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
 import { GoogleLogout } from 'react-google-login'
 
-import {GOOGLE_CLIENT_ID} from '../../constants'
+import {
+  GOOGLE_CLIENT_ID,
+  ADMIN_ROLE_ID,
+  STAFF_ROLE_ID,
+  DEFAULT_ROLE_ID
+} from '../../constants'
+import { ADMIN_LOGIN_SUCCESS } from '../../actions/types'
+
+import { setNewRole, adminLogout } from '../../actions'
 
 function LoginHeader(props) {
-  const { isUserLoginSuccess = false, handleGoogleResponse } = props
+  const { 
+    isUserLoginSuccess = false, 
+    handleGoogleResponse, 
+    selectedRole,
+    adminLoginStatus
+  } = props
+
+  const dispatch = useDispatch()
+  
+  const handleSetNewRole = (roleId) => dispatch(setNewRole(roleId))
+  
+  const handleAdminLogout = () => dispatch(adminLogout())
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -31,7 +51,18 @@ function LoginHeader(props) {
           </Typography>
 
           {!isUserLoginSuccess ?
-            <Button color="inherit">Admin</Button> :
+            (
+              <>
+                {(selectedRole === STAFF_ROLE_ID || selectedRole === DEFAULT_ROLE_ID)
+                  && <Button color="inherit" onClick={() => handleSetNewRole(ADMIN_ROLE_ID)}>Admin</Button>}
+                
+                {(selectedRole === ADMIN_ROLE_ID && adminLoginStatus === ADMIN_LOGIN_SUCCESS)
+                  && <Button color="inherit" onClick={() => handleAdminLogout()}>Admin logout</Button>}
+
+                {(selectedRole === ADMIN_ROLE_ID && adminLoginStatus !== ADMIN_LOGIN_SUCCESS)
+                  && <Button color="inherit" onClick={() => handleSetNewRole(STAFF_ROLE_ID)}>Staff</Button>}
+              </>
+            ) :
             <GoogleLogout
               clientId={GOOGLE_CLIENT_ID}
               buttonText="Logout"

@@ -19,15 +19,21 @@ import { useDispatch, useSelector } from 'react-redux'
 import { updateBooking } from '../../actions'
 import './passengerInfo.scss'
 
-function PassengerInfo() {
+function PassengerInfo({ seatingCapacity }) {
 
   const [updateInfo, setUpdateInfo] = useState(false)
   const dispatch = useDispatch()
+
+  const seatCols = ['A', 'B', 'C', 'D', 'E', 'F']
+  const seatRows = [...Array(seatingCapacity).keys()].map(val => val + 1)
+  const availableSeats = []
+  seatRows.forEach(row => seatCols.forEach(col => availableSeats.push(`${row}${col}`)))
 
   const currentBooking = useSelector(state => state?.flights?.currentBooking)
   const {
     id,
     flightId,
+    seat_no,
     passenger_name,
     checkedIn,
     wheel_chair_required,
@@ -37,6 +43,7 @@ function PassengerInfo() {
 
   const [formData, setFormData] = useState({
     passenger_name,
+    seat_no,
     checkedIn,
     wheel_chair_required,
     withInfant,
@@ -44,7 +51,6 @@ function PassengerInfo() {
   })
 
   const handleUpdateBooking = () => {
-    console.log({ formData })
     setUpdateInfo(!updateInfo)
 
     dispatch(updateBooking(formData, id, flightId))
@@ -57,6 +63,7 @@ function PassengerInfo() {
     'Priority boarding',
     'Fast track security'
   ]
+
 
   const handleAncillaryServiceChange = (event) => {
     const {
@@ -79,9 +86,26 @@ function PassengerInfo() {
               size="small"
               variant="standard"
               value={formData.passenger_name}
-              onChange={(e) => setFormData({ passenger_name: e.target.value })}
+              onChange={(e) => setFormData({ ...formData, passenger_name: e.target.value })}
               disabled={!updateInfo}
             />
+
+
+            <TextField
+              className="span-two-cols"
+              select
+              autoComplete="on"
+              multiple={false}
+              label="Seat number"
+              value={formData.seat_no}
+              onChange={(e) => setFormData({ ...formData, seat_no: e.target.value })}
+              helperText="Choose preferred seat"
+              disabled={!updateInfo}
+            >
+              {availableSeats.map(seatNo =>(
+                <MenuItem key={seatNo} value={seatNo}>{seatNo}</MenuItem>
+              ))}
+            </TextField>
 
             <span>Checked In </span>
             <Switch
@@ -104,7 +128,7 @@ function PassengerInfo() {
               disabled={!updateInfo}
             />
 
-            <FormControl className="ancillary-service-selector" disabled={!updateInfo}>
+            <FormControl className="span-two-cols" disabled={!updateInfo}>
               <InputLabel id="ancillary-service-label">Ancillary Services</InputLabel>
               <Select
                 labelId="ancillary-service-label"
@@ -137,7 +161,7 @@ function PassengerInfo() {
           {updateInfo && <Button size="small" onClick={handleUpdateBooking}>Save information</Button>}
         </CardActions>
       </Card>
-    ): <h6>{'No bookings found'}</h6>
+    ) : <h6>{'No bookings found'}</h6>
   )
 }
 

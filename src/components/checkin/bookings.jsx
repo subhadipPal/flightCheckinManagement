@@ -20,7 +20,7 @@ export default function Bookings() {
       <div className="bookings-page-layout">
         <Seatmap seatingCapacity={currentFlightSeatCapacity} />
         <Suspense>
-          {currentBooking && <PassengerInfo />}
+          {currentBooking && <PassengerInfo seatingCapacity={currentFlightSeatCapacity}/>}
         </Suspense>
       </div>
     </>
