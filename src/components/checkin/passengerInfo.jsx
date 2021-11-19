@@ -16,7 +16,8 @@ import InputLabel from "@mui/material/InputLabel"
 
 import { useDispatch, useSelector } from 'react-redux'
 
-import { updateBooking } from '../../actions'
+import { updateBooking, addNewPassenger, deleteBooking } from '../../actions'
+import { ancServices, seatCols, getSeatRows, ADMIN_ROLE_ID } from '../../constants'
 import './passengerInfo.scss'
 
 function PassengerInfo({ seatingCapacity }) {
@@ -24,10 +25,12 @@ function PassengerInfo({ seatingCapacity }) {
   const [updateInfo, setUpdateInfo] = useState(false)
   const dispatch = useDispatch()
 
-  const seatCols = ['A', 'B', 'C', 'D', 'E', 'F']
-  const seatRows = [...Array(seatingCapacity).keys()].map(val => val + 1)
+  const seatRows = getSeatRows(seatingCapacity)
   const availableSeats = []
   seatRows.forEach(row => seatCols.forEach(col => availableSeats.push(`${row}${col}`)))
+
+  const currentRoleId = useSelector(state => state.roles?.selectedRole)
+  const isAdminRole = (currentRoleId === ADMIN_ROLE_ID)
 
   const currentBooking = useSelector(state => state?.flights?.currentBooking)
   const {
@@ -38,15 +41,20 @@ function PassengerInfo({ seatingCapacity }) {
     checkedIn,
     wheel_chair_required,
     withInfant,
+    passport_number,
+    address,
     ancillary_services
   } = currentBooking
 
   const [formData, setFormData] = useState({
     passenger_name,
+    flightId,
     seat_no,
     checkedIn,
     wheel_chair_required,
     withInfant,
+    passport_number,
+    address,
     ancillary_services
   })
 
@@ -56,15 +64,6 @@ function PassengerInfo({ seatingCapacity }) {
     dispatch(updateBooking(formData, id, flightId))
   }
 
-  const ancServices = [
-    'Extra Blanket',
-    'Extra Pillow',
-    'Vegan food',
-    'Priority boarding',
-    'Fast track security'
-  ]
-
-
   const handleAncillaryServiceChange = (event) => {
     const {
       target: { value },
@@ -72,6 +71,10 @@ function PassengerInfo({ seatingCapacity }) {
 
     setFormData({ ...formData, ancillary_services: value })
   }
+
+  const handleAddPassenger = () => dispatch(addNewPassenger(formData))
+
+  const handleDeleteBooking = () => dispatch(deleteBooking(id, flightId))
 
   return (
     currentBooking ? (
@@ -87,7 +90,24 @@ function PassengerInfo({ seatingCapacity }) {
               variant="standard"
               value={formData.passenger_name}
               onChange={(e) => setFormData({ ...formData, passenger_name: e.target.value })}
-              disabled={!updateInfo}
+              disabled={isAdminRole ? (id && !updateInfo) : true}
+            />
+            <span>Passport number</span>
+            <TextField
+              size="small"
+              variant="standard"
+              value={formData.passport_number}
+              onChange={(e) => setFormData({ ...formData, passport_number: e.target.value })}
+              disabled={isAdminRole ? (id && !updateInfo) : true}
+            />
+
+            <span>Address</span>
+            <TextField
+              size="small"
+              variant="standard"
+              value={formData.address}
+              onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+              disabled={isAdminRole ? (id && !updateInfo) : true}
             />
 
 
@@ -100,9 +120,9 @@ function PassengerInfo({ seatingCapacity }) {
               value={formData.seat_no}
               onChange={(e) => setFormData({ ...formData, seat_no: e.target.value })}
               helperText="Choose preferred seat"
-              disabled={!updateInfo}
+              disabled={(id && !updateInfo)}
             >
-              {availableSeats.map(seatNo =>(
+              {availableSeats.map(seatNo => (
                 <MenuItem key={seatNo} value={seatNo}>{seatNo}</MenuItem>
               ))}
             </TextField>
@@ -111,24 +131,27 @@ function PassengerInfo({ seatingCapacity }) {
             <Switch
               checked={formData.checkedIn}
               onChange={(e) => setFormData({ ...formData, checkedIn: e.target.checked })}
-              disabled={!updateInfo}
+              disabled={(id && !updateInfo)}
             />
 
             <span>Wheelchair required</span>
             <Switch
               checked={formData.wheel_chair_required}
               onChange={(e) => setFormData({ ...formData, wheel_chair_required: e.target.checked })}
-              disabled={!updateInfo}
+              disabled={(id && !updateInfo)}
             />
 
             <span>With infant </span>
             <Switch
               checked={formData.withInfant}
               onChange={(e) => setFormData({ ...formData, withInfant: e.target.checked })}
-              disabled={!updateInfo}
+              disabled={(id && !updateInfo)}
             />
 
-            <FormControl className="span-two-cols" disabled={!updateInfo}>
+            <FormControl
+              className="span-two-cols"
+              disabled={isAdminRole ? (id && !updateInfo) : true}
+            >
               <InputLabel id="ancillary-service-label">Ancillary Services</InputLabel>
               <Select
                 labelId="ancillary-service-label"
@@ -157,8 +180,10 @@ function PassengerInfo({ seatingCapacity }) {
           </div>
         </CardContent>
         <CardActions>
-          {!updateInfo && <Button size="small" onClick={() => setUpdateInfo(!updateInfo)}>Update information</Button>}
-          {updateInfo && <Button size="small" onClick={handleUpdateBooking}>Save information</Button>}
+          {!updateInfo && id && <Button variant="outlined" size="small" onClick={() => setUpdateInfo(!updateInfo)}>Update booking</Button>}
+          {updateInfo && <Button variant="outlined" size="small" onClick={handleUpdateBooking}>Save booking</Button>}
+          {!id && <Button variant="outlined" size="small" onClick={handleAddPassenger}>Add booking</Button>}
+          {id && isAdminRole && <Button variant="outlined" size="small" onClick={handleDeleteBooking}>Delete booking</Button>}
         </CardActions>
       </Card>
     ) : <h6>{'No bookings found'}</h6>

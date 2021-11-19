@@ -2,7 +2,7 @@
   "flights": [
     {
       "id": "1",
-      "flight_dep_time": 2400,
+      "flight_dep_time": 1800,
       "flight_destination": "London",
       "flight_no": "LH101",
       "seating_capacity": 6
@@ -30,7 +30,7 @@
     },
     {
       "id": "5",
-      "flight_dep_time": 1700,
+      "flight_dep_time": 1230,
       "flight_destination": "Lisbon",
       "flight_no": "LH021",
       "seating_capacity": 6
@@ -42,7 +42,9 @@
       "flightId": "1",
       "seat_no": "1A",
       "passenger_name": "Subhadip Pal",
-      "checkedIn": false,
+      "passport_number": "P9746928",
+      "address": "Tieloh 85",
+      "checkedIn": true,
       "wheel_chair_required": false,
       "withInfant": false,
       "ancillary_services": [
@@ -53,14 +55,16 @@
     {
       "id": "2",
       "flightId": "1",
-      "seat_no": "3C",
+      "seat_no": "1E",
       "passenger_name": "Ilona Möller",
-      "checkedIn": true,
-      "wheel_chair_required": true,
+      "passport_number": "P892342",
+      "address": "Tieloh 900",
+      "checkedIn": false,
+      "wheel_chair_required": false,
       "withInfant": true,
       "ancillary_services": [
-        "Extra Pillow",
-        "Vegan food"
+        "Priority boarding",
+        "Fast track security"
       ]
     },
     {
@@ -68,6 +72,8 @@
       "flightId": "3",
       "seat_no": "5E",
       "passenger_name": "Vesna Munjiza",
+      "address": "Tieloh 87",
+      "passport_number": "P1002445",
       "checkedIn": false,
       "wheel_chair_required": true,
       "withInfant": true,
@@ -79,6 +85,8 @@
       "flightId": "3",
       "seat_no": "6D",
       "passenger_name": "Sayan Das",
+      "address": "Tieloh 88",
+      "passport_number": "J123149",
       "checkedIn": false,
       "wheel_chair_required": false,
       "withInfant": false,
@@ -92,12 +100,70 @@
       "flightId": "1",
       "seat_no": "2E",
       "passenger_name": "Sumit Saha",
+      "address": "Tieloh 89",
+      "passport_number": "H1233452",
       "checkedIn": true,
       "wheel_chair_required": true,
       "withInfant": false,
       "ancillary_services": [
         "Extra Pillow"
       ]
+    },
+    {
+      "passenger_name": "Neha",
+      "flightId": "1",
+      "seat_no": "6F",
+      "checkedIn": false,
+      "wheel_chair_required": true,
+      "withInfant": true,
+      "passport_number": "P1234123",
+      "address": "Spandau",
+      "ancillary_services": [
+        "Vegan food",
+        "Priority boarding",
+        "Extra Blanket"
+      ],
+      "id": "S7Lli0g"
+    },
+    {
+      "passenger_name": "Test user",
+      "flightId": "1",
+      "seat_no": "3A",
+      "checkedIn": false,
+      "wheel_chair_required": false,
+      "withInfant": true,
+      "passport_number": "12321321asd",
+      "address": "asdasd",
+      "ancillary_services": [],
+      "id": "5f1SoJw"
+    },
+    {
+      "passenger_name": "User test 2",
+      "flightId": "1",
+      "seat_no": "2B",
+      "checkedIn": false,
+      "wheel_chair_required": false,
+      "withInfant": true,
+      "passport_number": "P213213123",
+      "address": "asdasdasd",
+      "ancillary_services": [
+        "Extra Blanket"
+      ],
+      "id": "inL5zco"
+    },
+    {
+      "passenger_name": "Test user 3",
+      "flightId": "1",
+      "seat_no": "1B",
+      "checkedIn": true,
+      "wheel_chair_required": false,
+      "withInfant": true,
+      "passport_number": "F1231234",
+      "address": "testestets",
+      "ancillary_services": [
+        "Extra Blanket"
+      ],
+      "id": "jwjEFKL"
     }
   ],
   "admin": {

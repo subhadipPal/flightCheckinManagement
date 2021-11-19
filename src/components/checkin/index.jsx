@@ -13,6 +13,7 @@ function CheckIn() {
 
   useEffect(() => {
     dispatch(getFlightsByCurrentTime(currentTime))
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const flights = useSelector(state => state.flights)
@@ -21,7 +22,7 @@ function CheckIn() {
 
   return (
     <>
-      <FlightSelector flightsData={flights}/>
+      <FlightSelector flightsData={flights} />
       <Suspense>
         {flights.bookings && <Bookings />}
       </Suspense>

@@ -37,7 +37,7 @@ function Home() {
   )
 
   const AdminDashBoard = lazy(() =>
-    import('../adminDashboard')
+    import('../admin')
   )
 
   const LoadingComponent = <div>Loading...</div>

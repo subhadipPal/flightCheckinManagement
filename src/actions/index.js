@@ -6,11 +6,12 @@ import {
   SET_STAFF_ROLE,
   LOAD_FLIGHTS,
   LOAD_BOOKINGS,
-  SET_CURRENT_BOOKING,
+  CURRENT_BOOKING,
+  CURRENT_FLIGHT_ID,
   ADMIN_LOGIN_STATUS,
   ADMIN_LOGIN_SUCCESS,
   ADMIN_LOGIN_ERROR,
-  ADMIN_LOGOUT
+  ADMIN_LOGOUT,
 } from './types'
 
 import {
@@ -46,10 +47,22 @@ export const getBookingDetails = (flightId) => async (dispatch) => {
     type: LOAD_BOOKINGS,
     payload: bookings.data
   })
+
+  dispatch({
+    type: CURRENT_FLIGHT_ID,
+    payload: flightId
+  })
+
+  if(bookings.data.length === 0){
+    dispatch({
+      type: CURRENT_BOOKING,
+      payload: null
+    })
+  }
 }
 
 export const setCurrentBooking = (currentBooking) => ({
-  type: SET_CURRENT_BOOKING,
+  type: CURRENT_BOOKING,
   payload: currentBooking
 })
 
@@ -58,7 +71,7 @@ export const updateBooking = (bookingData, bookingId, flightId) => async (dispat
   const updatedBooking = await axios.patch(`http://localhost:3030/bookings/${bookingId}`, bookingData)
 
   dispatch({
-    type: SET_CURRENT_BOOKING,
+    type: CURRENT_BOOKING,
     payload: updatedBooking.data
   })
 
@@ -88,3 +101,27 @@ export const checkAdminLoginStatus = (credentials) => async (dispatch) => {
 export const adminLogout = () => ({
   type: ADMIN_LOGOUT
 })
+
+export const addNewPassenger = (newPassengerData) => async (dispatch) => {
+  const {data} = await axios.post('http://localhost:3030/bookings', newPassengerData)
+
+  dispatch({
+    type: CURRENT_BOOKING,
+    payload: data
+  })
+
+  dispatch(getBookingDetails(data.flightId))
+  
+}
+
+
+export const deleteBooking = (bookingId, flightId) => async (dispatch) => {
+  await axios.delete(`http://localhost:3030/bookings/${bookingId}`)
+
+  dispatch({
+    type: CURRENT_BOOKING,
+    payload: null
+  })
+
+  dispatch(getBookingDetails(flightId))
+}

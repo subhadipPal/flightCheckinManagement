@@ -9,3 +9,21 @@ html, body, #root{
   display: flex;
   flex-direction: column;
 }
+
+@media only screen and (max-width: 500px), (orientation: landscape) {
+  body{
+    background-color: gray;
+  }
+}
+
+@media only screen and (min-width: 500px) and (max-width: 999px) {
+  body{
+    background-color: lightblue;
+  }
+}
+
+@media only screen and (min-width: 1000px) and (max-width: 2048px) {
+  body{
+    background-color: whitesmoke;
+  }
+}

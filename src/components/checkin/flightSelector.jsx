@@ -24,12 +24,12 @@ export default function FlightSelector({ flightsData }) {
   const { flights } = flightsData
   const dispatch = useDispatch()
 
-  const handleToggle = (value) => () => {
-    const currentIndex = checked.indexOf(value)
+  const handleToggle = (flightId) => () => {
+    const currentIndex = checked.indexOf(flightId)
     const newChecked = []
 
     if (currentIndex === -1) {
-      newChecked.push(value)
+      newChecked.push(flightId)
     } else {
       newChecked.splice(currentIndex, 1)
     }
@@ -38,12 +38,13 @@ export default function FlightSelector({ flightsData }) {
   }
 
   const handleClick = () => {
-    dispatch(getBookingDetails(checked))
+    dispatch(getBookingDetails(checked[0]))
+    
     setSelectorExpanded(false)
   }
 
   return (
-    flights ?
+    flights.length > 0 ?
       <Accordion expanded={selectorExpanded} onChange={()=>setSelectorExpanded(!selectorExpanded)}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
