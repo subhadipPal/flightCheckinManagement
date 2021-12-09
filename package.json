@@ -5,18 +5,19 @@
   "main": "index.js",
   "scripts": {
     "test": "react-scripts test",
-    "start": "react-scripts start"
+    "install:all": "for D in */; do yarn --cwd \"${D}\"; done",
+    "start": "concurrently --kill-others \"cd ./api && yarn json:server:watch\" \"react-scripts start\""
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
     "@emotion/react": "^11.5.0",
     "@emotion/styled": "^11.3.0",
     "@mui/icons-material": "^5.1.0",
     "@mui/material": "^5.1.0",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
     "axios": "^0.24.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -47,6 +48,7 @@
     ]
   },
   "devDependencies": {
+    "concurrently": "^6.4.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.6",
     "redux-devtools-extension": "^2.13.9"
