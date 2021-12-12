@@ -4,10 +4,9 @@ import CheckIn from '../checkin'
 import './index.scss'
 
 function AdminDashboard() {
-
   return (
     <div className="dash-board">
-      <CheckIn isSelectorExpanded={true}/>
+      <CheckIn isSelectorExpanded={true} />
     </div>
   )
 }

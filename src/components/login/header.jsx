@@ -1,5 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
+import Proptypes from 'prop-types'
+
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
@@ -13,24 +15,24 @@ import {
   GOOGLE_CLIENT_ID,
   ADMIN_ROLE_ID,
   STAFF_ROLE_ID,
-  DEFAULT_ROLE_ID
+  DEFAULT_ROLE_ID,
 } from '../../constants'
-import { ADMIN_LOGIN_SUCCESS } from '../../actions/types'
+import { ADMIN_LOGIN_SUCCESS } from '../../redux/actions/types'
 
-import { setNewRole, adminLogout } from '../../actions'
+import { setNewRole, adminLogout } from '../../redux/actions'
 
 function LoginHeader(props) {
-  const { 
-    isUserLoginSuccess = false, 
-    handleGoogleResponse, 
+  const {
+    isUserLoginSuccess = false,
+    handleGoogleResponse,
     selectedRole,
-    adminLoginStatus
+    adminLoginStatus,
   } = props
 
   const dispatch = useDispatch()
-  
+
   const handleSetNewRole = (roleId) => dispatch(setNewRole(roleId))
-  
+
   const handleAdminLogout = () => dispatch(adminLogout())
 
   return (
@@ -50,24 +52,42 @@ function LoginHeader(props) {
             Airline check-In manager
           </Typography>
 
-          {!isUserLoginSuccess ?
-            (
-              <>
-                {(selectedRole === STAFF_ROLE_ID || selectedRole === DEFAULT_ROLE_ID)
-                  && <Button color="inherit" onClick={() => handleSetNewRole(ADMIN_ROLE_ID)}>Admin</Button>}
-                
-                {(selectedRole === ADMIN_ROLE_ID && adminLoginStatus === ADMIN_LOGIN_SUCCESS)
-                  && <Button color="inherit" onClick={() => handleAdminLogout()}>Admin logout</Button>}
+          {!isUserLoginSuccess ? (
+            <>
+              {(selectedRole === STAFF_ROLE_ID ||
+                selectedRole === DEFAULT_ROLE_ID) && (
+                <Button
+                  color="inherit"
+                  onClick={() => handleSetNewRole(ADMIN_ROLE_ID)}
+                >
+                  Admin
+                </Button>
+              )}
 
-                {(selectedRole === ADMIN_ROLE_ID && adminLoginStatus !== ADMIN_LOGIN_SUCCESS)
-                  && <Button color="inherit" onClick={() => handleSetNewRole(STAFF_ROLE_ID)}>Staff</Button>}
-              </>
-            ) :
+              {selectedRole === ADMIN_ROLE_ID &&
+                adminLoginStatus === ADMIN_LOGIN_SUCCESS && (
+                  <Button color="inherit" onClick={() => handleAdminLogout()}>
+                    Admin logout
+                  </Button>
+                )}
+
+              {selectedRole === ADMIN_ROLE_ID &&
+                adminLoginStatus !== ADMIN_LOGIN_SUCCESS && (
+                  <Button
+                    color="inherit"
+                    onClick={() => handleSetNewRole(STAFF_ROLE_ID)}
+                  >
+                    Staff
+                  </Button>
+                )}
+            </>
+              ) : (
             <GoogleLogout
               clientId={GOOGLE_CLIENT_ID}
               buttonText="Logout"
               onLogoutSuccess={handleGoogleResponse}
-            />}
+            />
+              )}
         </Toolbar>
       </AppBar>
     </Box>
@@ -75,3 +95,10 @@ function LoginHeader(props) {
 }
 
 export default LoginHeader
+
+LoginHeader.propTypes = {
+  isUserLoginSuccess: Proptypes.bool,
+  handleGoogleResponse: Proptypes.func,
+  selectedRole: Proptypes.number,
+  adminLoginStatus: Proptypes.string
+}

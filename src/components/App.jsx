@@ -1,10 +1,9 @@
-import React, {useEffect} from 'react'
-import {useDispatch} from 'react-redux'
+import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 
-import {initRoles} from '../actions'
+import { initRoles } from '../redux/actions'
 import Home from './login'
 import './App.scss'
-
 
 const App = () => {
   const dispatch = useDispatch()
@@ -13,9 +12,7 @@ const App = () => {
     dispatch(initRoles())
   }, [dispatch])
 
-  return (
-      <Home />
-  )
+  return <Home />
 }
 
 export default App

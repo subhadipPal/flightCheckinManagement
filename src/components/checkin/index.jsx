@@ -1,7 +1,7 @@
 import React, { useEffect, lazy, Suspense } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { getFlightsByCurrentTime } from '../../actions'
+import { getFlightsByCurrentTime } from '../../redux/actions'
 import FlightSelector from './flightSelector'
 
 function CheckIn() {
@@ -9,23 +9,23 @@ function CheckIn() {
   const currentDate = new Date()
   const currentHours = `${currentDate.getHours()}`
   const currentMinutes = `${currentDate.getMinutes()}`
-  const currentTime = `${currentHours.padStart(2, 0)}${currentMinutes.padStart(2, 0)}`
+  const currentTime = `${currentHours.padStart(2, 0)}${currentMinutes.padStart(
+    2,
+    0
+  )}`
 
   useEffect(() => {
     dispatch(getFlightsByCurrentTime(currentTime))
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const flights = useSelector(state => state.flights)
+  const flights = useSelector((state) => state.flights)
 
   const Bookings = lazy(() => import('./bookings'))
 
   return (
     <>
       <FlightSelector flightsData={flights} />
-      <Suspense>
-        {flights.bookings && <Bookings />}
-      </Suspense>
+      <Suspense>{flights.bookings && <Bookings />}</Suspense>
     </>
   )
 }
