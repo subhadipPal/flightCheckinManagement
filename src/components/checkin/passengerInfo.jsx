@@ -241,5 +241,5 @@ function PassengerInfo({ seatingCapacity }) {
 export default PassengerInfo
 
 PassengerInfo.propTypes = {
-  seatingCapacity: Proptypes.object
+  seatingCapacity: Proptypes.number
 }
