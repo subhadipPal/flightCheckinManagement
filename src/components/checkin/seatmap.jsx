@@ -206,5 +206,5 @@ function Seatmap({ seatingCapacity }) {
 export default Seatmap
 
 Seatmap.propTypes = {
-  seatingCapacity: Proptypes.object
+  seatingCapacity: Proptypes.number
 }
